@@ -1,0 +1,42 @@
+version: "3.3"
+
+services:
+  ssp:
+    container_name: ssp
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./:/src
+    networks:
+      - ssp_network
+    depends_on:
+      - ssp_database
+    environment: &environment
+      - LOGGING_LEVEL=DEBUG
+      - POSTGRES_HOST=ssp_database
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=samusocial
+      - POSTGRES_DB=ssp
+      - SQLALCHEMY_ECHO=False
+    ports:
+      - "8080:8080"
+    command: >
+      gunicorn --log-level debug --access-logfile - --capture-output --workers 4 --reload --bind 0.0.0.0:8080 wsgi:api
+
+  ssp_database:
+    container_name: ssp_database
+    image: postgres:9.6-alpine
+    volumes:
+      - ./tests/data:/home
+    environment: *environment
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - ssp_network
+
+networks:
+  ssp_network:
+    external:
+      name: ssp_network

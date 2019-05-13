@@ -1,0 +1,47 @@
+from sqlalchemy import Integer, String, Boolean, Float, Date
+
+from src.database.models import db
+
+
+class Hotel(db.Model):
+    __tablename__ = 'hotel'
+
+    id = db.Column(Integer, primary_key=True, autoincrement=True)
+    nom = db.Column(String)
+    addresse = db.Column(String)
+    ascenceur = db.Column(Boolean, default=False)
+    capacite = db.Column(Integer)
+    classe_defavorable = db.Column(Boolean, default=False)
+    cuisine_commune = db.Column(Boolean, default=False)
+    lit_bebe = db.Column(Boolean, default=False)
+    mobilite_reduite = db.Column(Boolean, default=False)
+    nombre_chambres = db.Column(Integer, default=0)
+    nombre_etages = db.Column(Integer)
+    responsable = db.Column(String)
+    type = db.Column(Integer)
+    type_public = db.Column(Integer)
+    ref_prestataire = db.Column(Integer, default=0)
+    animal_accepte = db.Column(Boolean, default=False)
+    tel2 = db.Column(String)
+    fax2 = db.Column(String)
+    contact_hotelier = db.Column(Integer, default=0)
+    niveau = db.Column(Integer)
+    distance_metro = db.Column(Integer)
+    bus_gare_hotel = db.Column(String)
+    temps_gare_hotel = db.Column(Integer)
+    heure_premier_bus = db.Column(String)
+    heure_dernier_bus = db.Column(String)
+    bus_gare = db.Column(String)
+    direction_bus_gare = db.Column(String)
+    bus_hotel = db.Column(String)
+    superficie_chambre = db.Column(Float)
+    kbis = db.Column(String)
+    siret = db.Column(String)
+    carton = db.Column(Boolean)
+    info_utiles = db.Column(Date)
+    attestation_presence = db.Column(String)
+    commission_securite = db.Column(String)
+    date_commission_securite = db.Column(Date)
+    prochaine_cs = db.Column(Date)
+    signataire_charte = db.Column(Boolean)
+    signataire_deontologie = db.Column(Boolean)
